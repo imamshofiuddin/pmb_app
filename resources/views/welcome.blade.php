@@ -77,8 +77,17 @@
             <a class="nav-link" href="">Pengumuman</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">Login</a>
+            @auth
+                <a class="nav-link" href="{{ url('/home') }}">Home</a>
+            @else
+                <a class="nav-link" href="{{ route('login') }}">Login</a>
           </li>
+            @if (Route::has('register'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('register') }}">Register</a>
+            </li>
+            @endif
+          @endauth
         </ul>
       </div>
     </div>
