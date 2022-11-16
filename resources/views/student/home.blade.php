@@ -52,7 +52,6 @@
                         <div class="alert alert-warning rounded-0" role="alert">
                             Anda sudah upload bukti bayar, Mohon tunggu konfirmasi
                         </div>
-                    @elseif(isset)
                     @endif
                     <div class="card-body">
                         {{-- @if (session('status'))
@@ -93,7 +92,7 @@
                             <input class="form-control my-2" type="text" name="alamat" placeholder="Alamat Rumah">
                             <input class="form-control my-2" type="text" name="kota" placeholder="Kota">
                             <input class="form-control my-2" type="text" name="asal_sekolah" placeholder="Asal Sekolah">
-                            <button class="w-100 btn btn-primary" type="submit">Simpan Data</button>
+                            <button class="w-100 btn btn-primary" type="submit" onclick="return confirm('apakah anda sudah yakin ?')">Simpan Data</button>
                         </form>
                     </div>
                 @endif
