@@ -23,20 +23,24 @@ class PaymentController extends Controller
         return redirect()->back();
     }
 
-    public function payment(){
+    public function payment(){  
         $data = Pembayaran::getPayment()->get();
         return view('admin.payment')->with('data',$data);
     }
 
     public function confirmPayment(Request $request){
+        $payment = Pembayaran::where('user_id','=',$request->input('user_id'))->first();
         if(isset($_POST['acc'])){
-            $payment = Pembayaran::where('user_id','=',$request->input('user_id'))->first();
             $payment->status = 'acc';
             $payment->update();
-        } else {
-            $payment = Pembayaran::where('user_id','=',$request->input('user_id'))->first();
+        } elseif(isset($_POST['deny'])) {
             $payment->status = 'deny';
             $payment->update();
+        } elseif(isset($_POST['cancel'])){
+            $payment->status = 'waiting';
+            $payment->update(); 
+        } else {
+            $payment->delete(); 
         }
 
         return redirect()->back();

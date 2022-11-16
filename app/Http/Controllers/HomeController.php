@@ -29,6 +29,9 @@ class HomeController extends Controller
             return view('admin.home');
         } else {
             $paid = Pembayaran::where('user_id', Auth::user()->id)->first();
+            if($paid != null && $paid->status == 'acc'){
+                return view('student.home')->with('dashboard', true);
+            }
             return view('student.home')->with('paid',$paid);
         }
     }

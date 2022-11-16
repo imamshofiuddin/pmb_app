@@ -30,9 +30,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['middleware'=>['auth']], function(){
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::post('/pay', [App\Http\Controllers\PaymentController::class, 'sendPay'])->name('pay');
+Route::group(['middleware'=>['auth','cekrole:admin']], function(){
     Route::get('/payment', [App\Http\Controllers\PaymentController::class, 'payment'])->name('payment');
     Route::post('/confirmPayment', [App\Http\Controllers\PaymentController::class, 'confirmPayment'])->name('confirmPayment');
+});
+
+Route::group(['middleware'=>['auth','cekrole:student']], function(){
+    Route::post('/pay', [App\Http\Controllers\PaymentController::class, 'sendPay'])->name('pay');
+});
+
+Route::group(['middleware'=>['auth','cekrole:admin,student']], function(){
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });

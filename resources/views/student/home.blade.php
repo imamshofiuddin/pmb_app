@@ -46,37 +46,56 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card mb-5">
-                <div class="card-header">Pembayaran</div>
-                @if ($paid != null)
-                    <div class="alert alert-warning rounded-0" role="alert">
-                        Anda sudah upload bukti bayar, Mohon tunggu konfirmasi
+                @if (!isset($dashboard))
+                    <div class="card-header">Pembayaran</div>
+                    @if (isset($paid) && $paid != null)
+                        <div class="alert alert-warning rounded-0" role="alert">
+                            Anda sudah upload bukti bayar, Mohon tunggu konfirmasi
+                        </div>
+                    @endif
+                    <div class="card-body">
+                        {{-- @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif --}}
+                        <img class="w-50" src="{{ asset('img/logo-bank-mandiri.png') }}" alt="">
+                        <ul class="list-group mb-4">
+                            <li class="list-group-item">Nama Bank : </li>
+                            <li class="list-group-item">No. Rek : 0038490823048</li>
+                            <li class="list-group-item">Nama : Kelompok 1</li>
+                            <li class="list-group-item fw-bold">Biaya : Rp500.000</li>
+                        </ul>
+
+                    @if ($paid == null)
+                        <form action="{{ route('pay') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <input class="form-control" type="file" name="fotoStruk" id="fotoStruk">
+                                <label for="fotoStruk"></label>
+                            </div>      
+                            <button class="btn btn-primary" type="submit">Kirim Bukti Pembayaran</button>                 
+                        </form>
+                    @endif
+                    </div>
+                @else
+                    <div class="card-header">
+                        Dashboard Peserta
+                    </div>
+                    <div class="card-body">
+                        <p>Selamat pembayaranmu sudah terkonfirmasi, silahkan lengkapi data di bawah ini</p>
+                        <form action="#" method="post">
+                            @csrf
+                            <input class="form-control my-2" type="text" name="nisn" placeholder="NISN">
+                            <input class="form-control my-2" type="text" name="nama" placeholder="Nama">
+                            <input class="form-control my-2" type="text" name="gender" placeholder="Jenis Kelamin">
+                            <input class="form-control my-2" type="text" name="alamat" placeholder="Alamat Rumah">
+                            <input class="form-control my-2" type="text" name="kota" placeholder="Kota">
+                            <input class="form-control my-2" type="text" name="asal_sekolah" placeholder="Asal Sekolah">
+                            <button class="w-100 btn btn-primary" type="submit" onclick="return confirm('apakah anda sudah yakin ?')">Simpan Data</button>
+                        </form>
                     </div>
                 @endif
-                <div class="card-body">
-                    {{-- @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif --}}
-                    <img class="w-50" src="{{ asset('img/logo-bank-mandiri.png') }}" alt="">
-                    <ul class="list-group mb-4">
-                        <li class="list-group-item">Nama Bank : </li>
-                        <li class="list-group-item">No. Rek : 0038490823048</li>
-                        <li class="list-group-item">Nama : Kelompok 1</li>
-                        <li class="list-group-item fw-bold">Biaya : Rp500.000</li>
-                    </ul>
-
-                @if ($paid == null)
-                    <form action="{{ route('pay') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                        <input class="form-control" type="file" name="fotoStruk" id="fotoStruk">
-                        <label for="fotoStruk"></label>
-                        </div>      
-                        <button class="btn btn-primary" type="submit">Kirim Bukti Pembayaran</button>                 
-                    </form>
-                @endif
-                </div>
             </div>
         </div>
     </div>
