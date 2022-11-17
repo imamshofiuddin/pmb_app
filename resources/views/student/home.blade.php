@@ -5,7 +5,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            Penerimaan Mahasiswa Baru
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
@@ -44,7 +44,7 @@
 {{-- Main Content --}}
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 col-lg-12">
             <div class="card mb-5">
                 @if (!isset($dashboard))
                     <div class="card-header">Pembayaran</div>
@@ -80,19 +80,36 @@
                     </div>
                 @else
                     <div class="card-header">
-                        Dashboard Peserta
+                        Profil Peserta
                     </div>
                     <div class="card-body">
-                        <p>Selamat pembayaranmu sudah terkonfirmasi, silahkan lengkapi data di bawah ini</p>
-                        <form action="#" method="post">
-                            @csrf
-                            <input class="form-control my-2" type="text" name="nisn" placeholder="NISN">
-                            <input class="form-control my-2" type="text" name="nama" placeholder="Nama">
-                            <input class="form-control my-2" type="text" name="gender" placeholder="Jenis Kelamin">
-                            <input class="form-control my-2" type="text" name="alamat" placeholder="Alamat Rumah">
-                            <input class="form-control my-2" type="text" name="kota" placeholder="Kota">
-                            <input class="form-control my-2" type="text" name="asal_sekolah" placeholder="Asal Sekolah">
-                            <button class="w-100 btn btn-primary" type="submit" onclick="return confirm('apakah anda sudah yakin ?')">Simpan Data</button>
+                        <p>Selamat pembayaranmu sudah terkonfirmasi, silahkan lengkapi profilmu di bawah ini</p>
+                        <form action="{{ route('submitData') }}" method="post">
+                        @csrf
+                        <div class="row gap-0">
+                            <div class="col-lg-6 data-diri">
+                                Data Diri
+                                <input class="form-control my-2" type="text" name="nisn" placeholder="NISN">
+                                <input class="form-control my-2" type="text" name="nama" placeholder="Nama">
+                                <input class="form-control my-2" type="text" name="gender" placeholder="Jenis Kelamin">
+                                <input class="form-control my-2" type="text" name="alamat" placeholder="Alamat Rumah">
+                                <input class="form-control my-2" type="text" name="kota" placeholder="Kota">
+                                <input class="form-control my-2" type="date" name="ttl" placeholder="Tanggal Lahir">
+                            </div>
+                            <div class="col-lg-6 data-ortu">
+                                Data Orang Tua
+                                <input class="form-control my-2" type="text" name="name-parent" placeholder="Nama Orang Tua">
+                                <input class="form-control my-2" type="text" name="job-parent" placeholder="Pekerjaan Orang Tua">
+                                <input class="form-control my-2" type="number" name="sal-parent" placeholder="Penghasilan Orang Tua">
+                            </div>
+                            <div class="col-lg-6 data-sekolah">
+                                Data Sekolah
+                                <input class="form-control my-2" type="text" name="name-school" placeholder="Asal Sekolah">
+                                <input class="form-control my-2" type="text" name="year-ijazah" placeholder="Tahun Ijazah">
+                            </div>
+                        </div>
+
+                            <button class="w-100 btn btn-primary" type="submit">Simpan Data</button>
                         </form>
                     </div>
                 @endif

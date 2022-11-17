@@ -37,6 +37,7 @@ Route::group(['middleware'=>['auth','cekrole:admin']], function(){
 
 Route::group(['middleware'=>['auth','cekrole:student']], function(){
     Route::post('/pay', [App\Http\Controllers\PaymentController::class, 'sendPay'])->name('pay');
+    Route::post('/submitData', [App\Http\Controllers\DataSiswaController::class, 'store'])->name('submitData');
 });
 
 Route::group(['middleware'=>['auth','cekrole:admin,student']], function(){
