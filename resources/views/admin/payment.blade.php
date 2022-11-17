@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Pembayaran Peserta'])
 
 @section('content')
 {{-- Navbar --}}
