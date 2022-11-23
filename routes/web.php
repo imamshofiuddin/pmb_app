@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DataSiswaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use GuzzleHttp\Middleware;
@@ -38,6 +39,10 @@ Route::group(['middleware'=>['auth','cekrole:admin']], function(){
 Route::group(['middleware'=>['auth','cekrole:student']], function(){
     Route::post('/pay', [App\Http\Controllers\PaymentController::class, 'sendPay'])->name('pay');
     Route::post('/submitData', [App\Http\Controllers\DataSiswaController::class, 'store'])->name('submitData');
+
+    Route::group(['middleware'=>['hasDashboard']], function(){
+        Route::get('/dashboard_peserta',[App\Http\Controllers\DashboardSiswaController::class, 'index'])->name('dashboard_peserta');
+    });
 });
 
 Route::group(['middleware'=>['auth','cekrole:admin,student']], function(){

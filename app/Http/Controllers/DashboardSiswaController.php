@@ -6,7 +6,7 @@ use App\Models\DataSiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DataSiswaController extends Controller
+class DashboardSiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,13 @@ class DataSiswaController extends Controller
      */
     public function index()
     {
-        //
+        $currentSiswa = DataSiswa::where('id_user','=',Auth::user()->id)->get();
+
+        foreach ($currentSiswa as $item) {
+            $siswa = $item;
+        }
+
+        return view('student.dashboard_peserta')->with('siswa', $siswa);
     }
 
     /**
@@ -36,28 +42,7 @@ class DataSiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nisn' => 'required',
-            'nama' => 'required',
-            // 'alamat' => 'required',
-            // 'ttl' => 'required',
-            // 'name_parent' => 'required',
-            // 'job_parent' => 'required',
-            // 'sal_parent' => 'required',
-            // 'name_school' => 'required',
-            // 'year_ijazah' => 'required'
-        ]);
-
-        $data = new DataSiswa();
-
-        $data->no_peserta = "3212022000" . Auth::user()->id;
-        $data->nisn = $request->input('nisn');
-        $data->id_user = Auth::user()->id;
-        $data->id_prodi = 1;
-
-        $data->save();
-
-        return redirect()->route('dashboard_peserta');
+        //
     }
 
     /**
@@ -66,9 +51,9 @@ class DataSiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        
+        //
     }
 
     /**

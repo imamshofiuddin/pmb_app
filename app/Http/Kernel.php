@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'cekrole' => \App\Http\Middleware\CekRole::class,
         'cekbayar' => \App\Http\Middleware\CekBayar::class,
+        'hasDashboard' => \App\Http\Middleware\HasDashboard::class,
     ];
 }

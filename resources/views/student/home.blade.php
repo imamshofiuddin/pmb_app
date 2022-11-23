@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app',['title' => 'Dashboard'])
 
 @section('content')
 {{-- Navbar --}}
@@ -46,7 +46,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-12">
             <div class="card mb-5">
-                @if (!isset($dashboard))
+                @if (!isset($form_profile))
                     <div class="card-header">Pembayaran</div>
                     @if (isset($paid) && $paid != null)
                         <div class="alert alert-warning rounded-0" role="alert">
