@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('pekerjaan_ortu')->nullable();
             $table->integer('penghasilan_ortu')->nullable();
             $table->string('status')->default('unpassed');
+            $table->string('foto');
             $table->timestamps();
         });
     }

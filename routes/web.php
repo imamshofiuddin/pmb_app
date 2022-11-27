@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DashboardSiswaController;
 use App\Http\Controllers\DataSiswaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -42,6 +43,9 @@ Route::group(['middleware'=>['auth','cekrole:student']], function(){
 
     Route::group(['middleware'=>['hasDashboard']], function(){
         Route::get('/dashboard_peserta',[App\Http\Controllers\DashboardSiswaController::class, 'index'])->name('dashboard_peserta');
+        Route::get('/pdf-download/{id}', [App\Http\Controllers\PdfController::class, 'pdfGenerate'])->name('pdf-download');
+        Route::get('/show/{id}', [App\Http\Controllers\DashboardSiswaController::class, 'show'])->name('showSiswa');
+        Route::post('/update/{id}', [App\Http\Controllers\DashboardSiswaController::class, 'update'])->name('updateDataSiswa');
     });
 });
 

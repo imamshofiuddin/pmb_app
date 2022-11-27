@@ -53,7 +53,13 @@ class DashboardSiswaController extends Controller
      */
     public function show($id)
     {
-        //
+        $siswa = DataSiswa::where('id', $id)->first();
+
+        if($siswa->count() > 0){
+            return view('student.edit')->with([
+                'siswa' => $siswa,
+            ]);
+        }
     }
 
     /**
@@ -76,7 +82,15 @@ class DashboardSiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item = DataSiswa::findOrFail($id);
+        
+        $request->file('foto')->move('upload/foto_peserta/',$request->file('foto')->getClientOriginalName());
+
+        $item->nama_lengkap = $request->input('nama');
+        $item->foto = $request->file('foto')->getClientOriginalName();
+
+        $item->update();
+        return redirect()->route('home');
     }
 
     /**

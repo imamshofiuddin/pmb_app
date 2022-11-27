@@ -39,19 +39,27 @@ class DataSiswaController extends Controller
         $request->validate([
             'nisn' => 'required',
             'nama' => 'required',
-            // 'alamat' => 'required',
-            // 'ttl' => 'required',
+            'alamat' => 'required',
+            'ttl' => 'required',
             // 'name_parent' => 'required',
             // 'job_parent' => 'required',
             // 'sal_parent' => 'required',
             // 'name_school' => 'required',
             // 'year_ijazah' => 'required'
+            'foto' => 'required',
         ]);
 
         $data = new DataSiswa();
 
+        $request->file('foto')->move('upload/foto_peserta/',$request->file('foto')->getClientOriginalName());
+
         $data->no_peserta = "3212022000" . Auth::user()->id;
         $data->nisn = $request->input('nisn');
+        $data->nama_lengkap = $request->input('nama');
+        $data->alamat_rumah = $request->input('alamat');
+        $data->ttl = $request->input('ttl');
+        $data->foto = $request->file('foto')->getClientOriginalName();
+
         $data->id_user = Auth::user()->id;
         $data->id_prodi = 1;
 

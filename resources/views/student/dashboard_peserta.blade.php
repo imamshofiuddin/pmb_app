@@ -41,14 +41,19 @@
         </div>
     </div>
 </nav>
+    <div class="container my-5">
+        <a class="nav-item active" href="">Profile</a>
+        <a href="">Pilihan</a>
+        <a href="">Finalisasi</a>
 
-    <a class="active" href="">Profile</a>
-    <a href="">Pilihan</a>
-    <a href="">Finalisasi</a>
+        <h1>Selamat Datang {{ $siswa->nama_lengkap }}</h1>
+        <p>Nomor Peserta : {{ $siswa->no_peserta }}</p>
+        <p>NISN : {{ $siswa->nisn }}</p>
+        <p>Nama Lengkap : {{ $siswa->nama_lengkap }}</p>
+        <a href="{{ route('showSiswa', ['id'=>$siswa->id]) }}">Ubah Data</a>
+        <p>Foto : </p>
+        <img style="width: 150px; height: 200px" src="{{ asset('upload/foto_peserta/'.$siswa->foto) }}" alt="">
 
-    <h1>Selamat Datang {{ $siswa->nama_lengkap }}</h1>
-    <p>Nomor Peserta : {{ $siswa->no_peserta }}</p>
-    <p>NISN : {{ $siswa->nisn }}</p>
-    <p>Nama Lengkap : {{ $siswa->nama_lengkap }}</p>
-    <a href="{{ url('/edit/'.$siswa->id) }}">Ubah Data</a>
+        <a href="{{ url("/pdf-download/{$siswa->id}") }}"><button class="btn btn-primary">Download PDF</button></a>
+    </div>
 @endsection

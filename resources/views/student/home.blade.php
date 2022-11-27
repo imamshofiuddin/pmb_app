@@ -84,7 +84,7 @@
                     </div>
                     <div class="card-body">
                         <p>Selamat pembayaranmu sudah terkonfirmasi, silahkan lengkapi profilmu di bawah ini</p>
-                        <form action="{{ route('submitData') }}" method="post">
+                        <form action="{{ route('submitData') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row gap-0">
                             <div class="col-lg-6 data-diri">
@@ -107,6 +107,11 @@
                                 <input class="form-control my-2" type="text" name="name-school" placeholder="Asal Sekolah">
                                 <input class="form-control my-2" type="text" name="year-ijazah" placeholder="Tahun Ijazah">
                             </div>
+                            <div class="col-lg-6 data-sekolah">
+                                Foto Peserta
+                                <input class="form-control my-2" type="file" accept="image/*" name="foto" id="foto">
+                                <div class="mb-3" id="img-preview"></div>
+                            </div>
                         </div>
 
                             <button class="w-100 btn btn-primary" type="submit">Simpan Data</button>
@@ -117,4 +122,25 @@
         </div>
     </div>
 </div>
+
+<script>
+    const chooseFile = document.getElementById("foto");
+    const imgPreview = document.getElementById("img-preview");
+
+    chooseFile.addEventListener("change", function () {
+        getImgData();
+    });
+
+    function getImgData() {
+        const files = chooseFile.files[0];
+        if (files) {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(files);
+            fileReader.addEventListener("load", function () {
+            imgPreview.style.display = "block";
+            imgPreview.innerHTML = '<img style="width: 150px; height: 200px;" src="' + this.result + '" />';
+            });    
+        }
+    }
+</script>
 @endsection
