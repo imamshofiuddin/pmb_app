@@ -16,7 +16,15 @@ class ProdiSeeder extends Seeder
     public function run()
     {
         Prodi::create([
-            'nama_prodi' => 'noprodi',
+            'nama_prodi' => 'no_prodi'
+        ]);
+
+        Prodi::create([
+            'nama_prodi' => 'it'
+        ]);
+
+        Prodi::create([
+            'nama_prodi' => 'elka'
         ]);
     }
 }

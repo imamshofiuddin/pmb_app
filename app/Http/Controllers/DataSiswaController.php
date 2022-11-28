@@ -65,7 +65,7 @@ class DataSiswaController extends Controller
 
         $data->save();
 
-        return redirect()->route('dashboard_peserta');
+        return redirect()->route('profile');
     }
 
     /**

@@ -32,7 +32,7 @@ class HomeController extends Controller
             $paid = Pembayaran::where('user_id', Auth::user()->id)->first();
 
             if(DataSiswa::where('id_user','=',Auth::user()->id)->get()->count() > 0){
-                return redirect()->route('dashboard_peserta');
+                return redirect()->route('profile');
             } else {
                 if($paid != null && $paid->status == 'acc'){
                     return view('student.home')->with('form_profile', true);

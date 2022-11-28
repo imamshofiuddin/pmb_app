@@ -5,16 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Prodi extends Model
+class Exam extends Model
 {
     use HasFactory;
-    protected $table = 'prodi';
+    protected $table = 'exam';
     protected $fillable = [
-        'nama_prodi'
+        'id_peserta',
+        'nilai'
     ];
-
-    public function dataSiswa()
-    {
-        return $this->belongsTo(DataSiswa::class);
-    }
 }

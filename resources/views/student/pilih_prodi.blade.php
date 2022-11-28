@@ -1,5 +1,5 @@
 
-@extends('layouts.app',['title' => 'Dashboard - Profile'])
+@extends('layouts.app',['title' => 'Dashboard - Pilih Prodi'])
 
 @section('content')
 {{-- Navbar --}}
@@ -41,23 +41,41 @@
         </div>
     </div>
 </nav>
-    <div class="container my-5">
-        <a class="nav-item active" href="{{ route('profile') }}">Profile</a>
-        <a href="{{ route('pilih_prodi') }}">Pilihan</a>
-        <a href="{{ route('finalisasi') }}">Finalisasi</a>
 
-        <h1>Selamat Datang {{ $siswa->nama_lengkap }}</h1>
-        <p>Nomor Peserta : {{ $siswa->no_peserta }}</p>
-        <p>NISN : {{ $siswa->nisn }}</p>
-        <p>Nama Lengkap : {{ $siswa->nama_lengkap }}</p>
+{{-- main content --}}
+<div class="container mt-5">
+    <a class="nav-item active" href="{{ route('profile') }}">Profile</a>
+    <a href="{{ route('pilih_prodi') }}">Pilihan</a>
+    <a href="{{ route('finalisasi') }}">Finalisasi</a><br>
+    Pilih Program Studi
 
-        <p>Foto : </p>
-        <img style="width: 150px; height: 200px" src="{{ asset('upload/foto_peserta/'.$siswa->foto) }}" alt="">
-
-        @if ($siswa->is_final == 'not_final')
-            <a href="{{ route('showSiswa', ['id'=>$siswa->id]) }}">Ubah Data</a>            
+    @if ($siswa->is_final == 'final')
+        <p>Kamu sudah memilih prodi</p>
+        <p>Prodi kamu {{ $siswa->id_prodi }}</p>
+        <i>Tidak bisa mengubah data, data anda sudah difinalisasi</i>
+    @else
+        @if ($siswa->id_prodi == 1)
+            <form action="{{ route('submitProdi') }}" method="post">
+                @csrf
+                <select name="prodi" id="prodi" class="form-control">
+                    @foreach ($prodis as $prodi)
+                        @if ($prodi->id == 1)
+                            <option value="{{ $prodi->id }}">-</option>
+                        @else
+                            <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
+                        @endif
+                    @endforeach
+                </select>
+                <button class="mt-3 btn btn-primary" type="submit">Submit Prodi</button>
+            </form>
+        @else
+            <p>Kamu sudah memilih prodi</p>
+            <p>Prodi kamu {{ $siswa->id_prodi }}</p>
+            <form action="{{ route('hapusProdi') }}" method="post">
+                @csrf
+                <button class="btn btn-danger" onclick="return confirm(' are u sure ?')">Batalkan pilihan</button>
+            </form>
         @endif
-
-        {{-- <a href="{{ url("/pdf-download/{$siswa->id}") }}"><button class="btn btn-primary">Download PDF</button></a> --}}
-    </div>
+    @endif
+</div>
 @endsection

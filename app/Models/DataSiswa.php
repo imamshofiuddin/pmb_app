@@ -27,5 +27,13 @@ class DataSiswa extends Model
         'pekerjaan_ortu',
         'penghasilan_ortu',
         'status',
+        'foto',
+        'is_final'
     ];
+
+    public function prodi()
+    {
+        // buat relasi nya mau seperti apa disini, contoh
+        return $this->hasOne(Prodi::class);
+    }
 }

@@ -34,6 +34,7 @@ return new class extends Migration
             $table->integer('penghasilan_ortu')->nullable();
             $table->string('status')->default('unpassed');
             $table->string('foto');
+            $table->string('is_final')->default('not_final');
             $table->timestamps();
         });
     }

@@ -1,5 +1,5 @@
 
-@extends('layouts.app',['title' => 'Dashboard - Profile'])
+@extends('layouts.app',['title' => 'Dashboard - Finalisasi'])
 
 @section('content')
 {{-- Navbar --}}
@@ -41,23 +41,27 @@
         </div>
     </div>
 </nav>
-    <div class="container my-5">
-        <a class="nav-item active" href="{{ route('profile') }}">Profile</a>
-        <a href="{{ route('pilih_prodi') }}">Pilihan</a>
-        <a href="{{ route('finalisasi') }}">Finalisasi</a>
 
-        <h1>Selamat Datang {{ $siswa->nama_lengkap }}</h1>
-        <p>Nomor Peserta : {{ $siswa->no_peserta }}</p>
-        <p>NISN : {{ $siswa->nisn }}</p>
-        <p>Nama Lengkap : {{ $siswa->nama_lengkap }}</p>
+<div class="container mt-5">
+    <a class="nav-item active" href="{{ route('profile') }}">Profile</a>
+    <a href="{{ route('pilih_prodi') }}">Pilihan</a>
+    <a href="{{ route('finalisasi') }}">Finalisasi</a>
+    <h1>Finalisasi Data</h1>
 
-        <p>Foto : </p>
-        <img style="width: 150px; height: 200px" src="{{ asset('upload/foto_peserta/'.$siswa->foto) }}" alt="">
+    @if ($siswa->is_final == "final")
+        <p>Data Anda sudah difinalisasi</p>
+        <p>Kartu Peserta : </p>
+        <a href="{{ url("/pdf-download/{$siswa->id}") }}"><button class="btn btn-primary">Download PDF</button></a>
+        <p>selanjutnya melakukan ujian pada link di bawah ini</p><br>
+        <a target="blank" href={{ route('exam') }}><button class="btn btn-success">Ujian Tes</button></a>
 
-        @if ($siswa->is_final == 'not_final')
-            <a href="{{ route('showSiswa', ['id'=>$siswa->id]) }}">Ubah Data</a>            
-        @endif
+    @else
+        <form action="{{ route('finalisasi_data') }}" method="post">
+            @csrf
+            <button type="submit" onclick="return confirm('apakah anda yakin, data tidak dapat diubah lagi ! ')">Finalisasi Data</button>
+        </form>
+    @endif
+</div>
 
-        {{-- <a href="{{ url("/pdf-download/{$siswa->id}") }}"><button class="btn btn-primary">Download PDF</button></a> --}}
-    </div>
+
 @endsection

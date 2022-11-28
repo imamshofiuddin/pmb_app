@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardSiswaController;
 use App\Http\Controllers\DataSiswaController;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use GuzzleHttp\Middleware;
@@ -42,12 +43,23 @@ Route::group(['middleware'=>['auth','cekrole:student']], function(){
     Route::post('/submitData', [App\Http\Controllers\DataSiswaController::class, 'store'])->name('submitData');
 
     Route::group(['middleware'=>['hasDashboard']], function(){
-        Route::get('/dashboard_peserta',[App\Http\Controllers\DashboardSiswaController::class, 'index'])->name('dashboard_peserta');
+        Route::get('/profile',[App\Http\Controllers\DashboardSiswaController::class, 'profile'])->name('profile');
+        Route::get('/pilih_prodi',[App\Http\Controllers\DashboardSiswaController::class, 'pilih_prodi'])->name('pilih_prodi');
+        Route::post('/submit_prodi',[App\Http\Controllers\DashboardSiswaController::class, 'submitProdi'])->name('submitProdi');
+        Route::post('/hapus_prodi',[App\Http\Controllers\DashboardSiswaController::class, 'hapusProdi'])->name('hapusProdi');
+        Route::get('/finalisasi',[App\Http\Controllers\DashboardSiswaController::class, 'finalisasi'])->name('finalisasi');
+        Route::post('/finalisasi_data', [DashboardSiswaController::class, 'finalisasiData'])->name('finalisasi_data');
         Route::get('/pdf-download/{id}', [App\Http\Controllers\PdfController::class, 'pdfGenerate'])->name('pdf-download');
         Route::get('/show/{id}', [App\Http\Controllers\DashboardSiswaController::class, 'show'])->name('showSiswa');
         Route::post('/update/{id}', [App\Http\Controllers\DashboardSiswaController::class, 'update'])->name('updateDataSiswa');
     });
 });
+
+Route::get('/exam', [ExamController::class, 'index'])->name('exam');
+Route::post('/cek_peserta', [ExamController::class, 'cekPeserta'])->name('cek_peserta');
+Route::get('/rule_exam', [ExamController::class, 'ruleExam'])->name('rule_exam');
+Route::get('/start_exam', [ExamController::class, 'startExam'])->name('start_exam');
+Route::post('/submit_exam', [ExamController::class, 'submitExam'])->name('submit_exam');
 
 Route::group(['middleware'=>['auth','cekrole:admin,student']], function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
