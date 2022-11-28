@@ -55,11 +55,15 @@ Route::group(['middleware'=>['auth','cekrole:student']], function(){
     });
 });
 
+
 Route::get('/exam', [ExamController::class, 'index'])->name('exam');
 Route::post('/cek_peserta', [ExamController::class, 'cekPeserta'])->name('cek_peserta');
-Route::get('/rule_exam', [ExamController::class, 'ruleExam'])->name('rule_exam');
-Route::get('/start_exam', [ExamController::class, 'startExam'])->name('start_exam');
-Route::post('/submit_exam', [ExamController::class, 'submitExam'])->name('submit_exam');
+Route::group(['middleware' =>['hasExam']], function(){
+    Route::get('/rule_exam', [ExamController::class, 'ruleExam'])->name('rule_exam');
+    Route::get('/start_exam', [ExamController::class, 'startExam'])->name('start_exam');
+    Route::post('/submit_exam', [ExamController::class, 'submitExam'])->name('submit_exam');
+});
+
 
 Route::group(['middleware'=>['auth','cekrole:admin,student']], function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

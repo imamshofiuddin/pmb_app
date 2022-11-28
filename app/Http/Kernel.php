@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\HasExam;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -66,5 +67,6 @@ class Kernel extends HttpKernel
         'cekrole' => \App\Http\Middleware\CekRole::class,
         'cekbayar' => \App\Http\Middleware\CekBayar::class,
         'hasDashboard' => \App\Http\Middleware\HasDashboard::class,
+        'hasExam' => \App\Http\Middleware\HasExam::class,
     ];
 }
