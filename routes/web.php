@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardSiswaController;
 use App\Http\Controllers\DataSiswaController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\UserController;
 use GuzzleHttp\Middleware;
 use Illuminate\Routing\Controllers\Middleware as ControllersMiddleware;
@@ -33,9 +34,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['middleware'=>['auth','cekrole:admin,student']], function(){
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+
 Route::group(['middleware'=>['auth','cekrole:admin']], function(){
     Route::get('/payment', [App\Http\Controllers\PaymentController::class, 'payment'])->name('payment');
     Route::post('/confirmPayment', [App\Http\Controllers\PaymentController::class, 'confirmPayment'])->name('confirmPayment');
+    Route::get('/ranking', [App\Http\Controllers\RankingController::class, 'index'])->name('ranking');
 });
 
 Route::group(['middleware'=>['auth','cekrole:student']], function(){
@@ -64,7 +70,6 @@ Route::group(['middleware' =>['hasExam']], function(){
     Route::post('/submit_exam', [ExamController::class, 'submitExam'])->name('submit_exam');
 });
 
-
-Route::group(['middleware'=>['auth','cekrole:admin,student']], function(){
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-});
+Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumuman');
+Route::post('/cek_hasil', [PengumumanController::class, 'cekHasil'])->name('cek_hasil');
+Route::get('/lolos-pmb/{id}', [App\Http\Controllers\PdfController::class, 'lolosPmb'])->name('lolos-pmb');

@@ -11,6 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
                 <a href="{{ route('payment') }}">Pembayaran</a>
+                <a href="{{ route('ranking') }}">Ranking</a>
             </ul>
 
             <!-- Right Side Of Navbar -->

@@ -48,12 +48,16 @@
     <a href="{{ route('finalisasi') }}">Finalisasi</a>
     <h1>Finalisasi Data</h1>
 
+    @if($errors->any())
+        <p class="text-danger">{{ $errors->first() }}</p>
+    @endif
+    
     @if ($siswa->is_final == "final")
         <p>Data Anda sudah difinalisasi</p>
         <p>Kartu Peserta : </p>
         <a href="{{ url("/pdf-download/{$siswa->id}") }}"><button class="btn btn-primary">Download PDF</button></a>
         <p>selanjutnya melakukan ujian pada link di bawah ini</p><br>
-        <a target="blank" href={{ route('exam') }}><button class="btn btn-success">Ujian Tes</button></a>
+        <a target="_blank" href={{ route('exam') }}><button class="btn btn-success">Ujian Tes</button></a>
 
     @else
         <form action="{{ route('finalisasi_data') }}" method="post">

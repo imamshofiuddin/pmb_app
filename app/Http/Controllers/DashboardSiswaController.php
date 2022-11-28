@@ -78,6 +78,9 @@ class DashboardSiswaController extends Controller
     {
         $currentSiswa = DataSiswa::where('id_user','=',Auth::user()->id)->first();
 
+        if($currentSiswa->id_prodi == 1){
+            return redirect()->back()->withErrors(['error'=>'Anda Belum mengisi prodi, silahkan pilih terlebih dahulu!']);
+        }
         $currentSiswa->is_final = 'final';
 
         $currentSiswa->update();
@@ -147,10 +150,14 @@ class DashboardSiswaController extends Controller
     {
         $item = DataSiswa::findOrFail($id);
         
-        $request->file('foto')->move('upload/foto_peserta/',$request->file('foto')->getClientOriginalName());
+        if(($request->file('foto')) !== null){
+            $request->file('foto')->move('upload/foto_peserta/',$request->file('foto')->getClientOriginalName());
+            $item->foto = $request->file('foto')->getClientOriginalName();
+        }
+        
 
         $item->nama_lengkap = $request->input('nama');
-        $item->foto = $request->file('foto')->getClientOriginalName();
+
 
         $item->update();
         return redirect()->route('home');
