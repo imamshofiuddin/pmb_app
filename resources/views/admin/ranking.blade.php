@@ -21,7 +21,10 @@
     @foreach ($ranking as $item)
         <p>Nama : {{ $item->nama_lengkap }}</p>
         <p>No Peserta : {{ $item->no_peserta }}</p>
-        <p>Prodi : {{ $item->id_prodi }}</p>
+        @php
+            $prodi = DB::table('prodi')->where(['id' => $item->id_prodi])->first();
+        @endphp
+        <p>Prodi : {{ $prodi->nama_prodi }}</p>
         <p>Nilai : {{ $item->nilai }}</p>
         <p>status : {{ $item->status }}</p>
         <br><br>

@@ -50,7 +50,7 @@ class PengumumanController extends Controller
 
     public function cekHasil(Request $request){
         $data = DataSiswa::where('no_peserta', '=', $request->input('no_peserta'))->first();
-        
+        $server = ServerAnnouncement::all()->first();
 
         if($data == null)
             return redirect()->back()->withErrors(['error' => 'nomor peserta salah']);
@@ -60,6 +60,7 @@ class PengumumanController extends Controller
         if($data !== null && $exam !== null){
             return view('pengumuman')->with([
                 'data' => $data,
+                'server' => $server
             ]);
         } else {
             return redirect()->back()->withErrors(['error' => 'kamu belum bisa mengakses pengumuman']);

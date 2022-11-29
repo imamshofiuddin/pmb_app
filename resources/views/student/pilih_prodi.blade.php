@@ -13,7 +13,7 @@
 
     @if ($siswa->is_final == 'final')
         <p>Kamu sudah memilih prodi</p>
-        <p>Prodi kamu {{ $siswa->id_prodi }}</p>
+        <p>Prodi kamu {{ $currentProdi->nama_prodi }}</p>
         <i>Tidak bisa mengubah data, data anda sudah difinalisasi</i>
     @else
         @if ($currentProdi->nama_prodi == "no_prodi")
@@ -32,7 +32,7 @@
             </form>
         @else
             <p>Kamu sudah memilih prodi</p>
-            <p>Prodi kamu {{ $siswa->id_prodi }}</p>
+            <p>Prodi kamu {{ $currentProdi->nama_prodi }}</p>
             <form action="{{ route('hapusProdi') }}" method="post">
                 @csrf
                 <button class="btn btn-danger" onclick="return confirm(' are u sure ?')">Batalkan pilihan</button>
