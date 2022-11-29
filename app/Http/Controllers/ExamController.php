@@ -67,6 +67,6 @@ class ExamController extends Controller
         $exam->save();
         $request->session()->forget('no_peserta');
 
-        return "Terimakasih sudah mengikuti ujian, semoga hasilnya memuaskan";
+        return redirect()->route('proses_rank');
     }
 }

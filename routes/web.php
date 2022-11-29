@@ -6,6 +6,7 @@ use App\Http\Controllers\DataSiswaController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\RankingController;
 use App\Http\Controllers\UserController;
 use GuzzleHttp\Middleware;
 use Illuminate\Routing\Controllers\Middleware as ControllersMiddleware;
@@ -69,6 +70,8 @@ Route::group(['middleware' =>['hasExam']], function(){
     Route::get('/start_exam', [ExamController::class, 'startExam'])->name('start_exam');
     Route::post('/submit_exam', [ExamController::class, 'submitExam'])->name('submit_exam');
 });
+
+Route::get('/proses_rank', [RankingController::class, 'prosesRank'])->name('proses_rank');
 
 Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumuman');
 Route::post('/cek_hasil', [PengumumanController::class, 'cekHasil'])->name('cek_hasil');

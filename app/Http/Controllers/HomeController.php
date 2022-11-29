@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DataSiswa;
 use App\Models\Pembayaran;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
