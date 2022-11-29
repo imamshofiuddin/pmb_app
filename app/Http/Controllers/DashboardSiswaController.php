@@ -33,15 +33,18 @@ class DashboardSiswaController extends Controller
     public function pilih_prodi()
     {
         $currentSiswa = DataSiswa::where('id_user','=',Auth::user()->id)->get();
-        $prodis = Prodi::all();
 
         foreach ($currentSiswa as $item) {
             $siswa = $item;
         }
 
+        $currentProdi = Prodi::where('id','=',$siswa->id_prodi)->first();
+        $prodis = Prodi::all();
+
         return view('student.pilih_prodi')->with([
             'siswa'=> $siswa,
-            'prodis' => $prodis
+            'currentProdi' => $currentProdi,
+            'prodis' => $prodis,
         ]);
     }
 
@@ -148,18 +151,31 @@ class DashboardSiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = DataSiswa::findOrFail($id);
+        $data = DataSiswa::findOrFail($id);
         
         if(($request->file('foto')) !== null){
             $request->file('foto')->move('upload/foto_peserta/',$request->file('foto')->getClientOriginalName());
-            $item->foto = $request->file('foto')->getClientOriginalName();
+            $data->foto = $request->file('foto')->getClientOriginalName();
         }
         
+        $data->nisn = $request->input('nisn');
+        $data->nama_lengkap = $request->input('nama');
+        $data->jenis_kelamin = $request->input('gender');
+        $data->alamat_rumah = $request->input('alamat');
+        $data->kota = $request->input('kota');
+        $data->ttl = $request->input('ttl');
+        $data->hp = $request->input('hp');
+        $data->email = $request->input('email');
 
-        $item->nama_lengkap = $request->input('nama');
+        $data->asal_sekolah = $request->input('name-school');
+        $data->tahun_ijazah = $request->input('year-ijazah');
+
+        $data->nama_ortu = $request->input('name-parent');
+        $data->pekerjaan_ortu = $request->input('job-parent');
+        $data->penghasilan_ortu = $request->input('sal-parent');
 
 
-        $item->update();
+        $data->update();
         return redirect()->route('home');
     }
 

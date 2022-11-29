@@ -37,6 +37,8 @@ class HomeController extends Controller
             } else {
                 if($paid != null && $paid->status == 'acc'){
                     return view('student.home')->with('form_profile', true);
+                } else if($paid != null && $paid->status == 'deny'){
+                    return view('student.home')->with(['repay'=> true, 'paid' => $paid]);
                 }
                 return view('student.home')->with('paid',$paid);
             }

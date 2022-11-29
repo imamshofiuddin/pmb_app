@@ -2,60 +2,55 @@
 @extends('layouts.app',['title' => 'Dashboard - Profile'])
 
 @section('content')
-{{-- Navbar --}}
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            Penerimaan Mahasiswa Baru
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav me-auto">
-                
-            </ul>
-            
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }}
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+@include('student.components.navbar')
     <div class="container my-5">
         <a class="nav-item active" href="{{ route('profile') }}">Profile</a>
         <a href="{{ route('pilih_prodi') }}">Pilihan</a>
         <a href="{{ route('finalisasi') }}">Finalisasi</a>
-
-        <h1>Selamat Datang {{ $siswa->nama_lengkap }}</h1>
-        <p>Nomor Peserta : {{ $siswa->no_peserta }}</p>
-        <p>NISN : {{ $siswa->nisn }}</p>
-        <p>Nama Lengkap : {{ $siswa->nama_lengkap }}</p>
-
-        <p>Foto : </p>
-        <img style="width: 150px; height: 200px" src="{{ asset('upload/foto_peserta/'.$siswa->foto) }}" alt="">
+        <h1 class="fw-bolder" style="color: navy">Selamat Datang</h1>
+        <div class="row mt-3">
+            <div class="col-lg-7">
+                <div class="card shadow-sm border-0 mb-3">
+                    <h5 style="height: 50px;" class="card-header fw-semibold border-bottom-0 text-secondary fs-4">{{ $siswa->nama_lengkap }}</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <img class="rounded" style="width: 150px; height: 200px" src="{{ asset('upload/foto_peserta/'.$siswa->foto) }}" alt="">
+                            </div>
+                            <div class="col-lg-8">
+                                <p style="color: navy" class="fs-6 fw-semibold">NISN <span class="text-dark fs-5 d-block">{{ $siswa->nisn }}</span></p>
+                                <p style="color: navy" class="fs-6 fw-semibold">Asal Sekolah <span class="text-dark fs-5 d-block">{{ $siswa->asal_sekolah }}</span></p>
+                                <p style="color: navy" class="fs-6 fw-semibold">Tahun Ijazah <span class="text-dark fs-5 d-block">{{ $siswa->tahun_ijazah }}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow-sm border-0 mb-3">
+                    <h5 style="height: 50px;" class="card-header fw-semibold border-bottom-0 text-secondary fs-4">Orang Tua</h5>
+                    <div class="card-body">
+                        <p style="color: navy" class="fs-6 fw-semibold">Nama <span class="text-dark fs-5 d-block">{{ $siswa->nama_ortu }}</span></p>
+                        <p style="color: navy" class="fs-6 fw-semibold">Pekerjaan <span class="text-dark fs-5 d-block">{{ $siswa->pekerjaan_ortu }}</span></p>
+                        <p style="color: navy" class="fs-6 fw-semibold">Penghasilan <span class="text-dark fs-5 d-block">{{ $siswa->penghasilan_ortu }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card shadow-sm border-0 mb-3 h-100">
+                    <h5 style="height: 50px;" class="card-header fw-semibold border-bottom-0 text-secondary fs-4">Data Diri</h5>
+                    <div class="card-body">
+                        <p style="color: navy" class="fs-6 fw-semibold">Tanggal Lahir <span class="text-dark fs-5 d-block">{{ $siswa->ttl }}</span></p>
+                        <p style="color: navy" class="fs-6 fw-semibold">Jenis Kelamin <span class="text-dark fs-5 d-block">{{ $siswa->jenis_kelamin }}</span></p>
+                        <p style="color: navy" class="fs-6 fw-semibold">Asal Kota <span class="text-dark fs-5 d-block">{{ $siswa->kota }}</span></p>
+                        <p style="color: navy" class="fs-6 fw-semibold">Alamat Rumah <span class="text-dark fs-5 d-block">{{ $siswa->alamat_rumah }}</span></p>
+                        <p style="color: navy" class="fs-6 fw-semibold">Nomor HP <span class="text-dark fs-5 d-block">{{ $siswa->hp }}</span></p>
+                        <p style="color: navy" class="fs-6 fw-semibold">Email <span class="text-dark fs-5 d-block">{{ $siswa->email }}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         @if ($siswa->is_final == 'not_final')
-            <a href="{{ route('showSiswa', ['id'=>$siswa->id]) }}">Ubah Data</a>            
+            <a href="{{ route('showSiswa', ['id'=>$siswa->id]) }}"><button class="btn btn-primary">Ubah Data</button></a>            
         @endif
 
         {{-- <a href="{{ url("/pdf-download/{$siswa->id}") }}"><button class="btn btn-primary">Download PDF</button></a> --}}

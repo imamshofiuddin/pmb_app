@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DataSiswa;
 use App\Models\Exam;
+use App\Models\ServerExam;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,40 @@ class ExamController extends Controller
 {
     public function index()
     {
-        return view('exam.index');
+        $server = ServerExam::all()->first();
+        return view('exam.index')->with('server', $server);
+    }
+
+    public function serverExam()
+    {
+        $server = DB::table('exam-server')->first();
+        return view('admin.exam-server')->with('server',$server);
+    }
+
+    public function openExam()
+    {
+        $server = ServerExam::all()->first();
+
+        $server->status = "dibuka";
+
+        $server->update();
+
+        return redirect()->back()->with([
+            'server' => $server,
+        ]);
+    }
+
+    public function closeExam()
+    {
+        $server = ServerExam::all()->first();
+
+        $server->status = "ditutup";
+
+        $server->update();
+
+        return redirect()->back()->with([
+            'server' => $server,
+        ]);
     }
 
     public function cekPeserta(Request $request)

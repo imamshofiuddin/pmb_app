@@ -11,8 +11,22 @@ class RankingController extends Controller
 {
     public function index(){
         $ranking = Exam::getSiswa()->orderBy('nilai', 'DESC')->get();
+        $prodis = Prodi::all();
+        
+        return view('admin.ranking')->with(['ranking' => $ranking, 'prodis' => $prodis]);
+    }
 
-        return view('admin.ranking')->with(['ranking' => $ranking]);
+    public function sort(Request $request){
+        if($request->input('sort') == 'all'){
+            return redirect()->route('ranking');
+        } else {
+            $ranking = Exam::getSiswa()->where('id_prodi', '=', $request->input('sort'))->orderBy('nilai', 'DESC')->get();
+            $activeProdi = Prodi::where('id', '=', $request->input('sort'))->first();
+        }
+
+        $prodis = Prodi::all();
+
+        return view('admin.ranking')->with(['ranking' => $ranking, 'prodis' => $prodis, 'activeProdi' => $activeProdi]);
     }
 
     public function prosesRank()

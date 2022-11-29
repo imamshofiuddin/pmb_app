@@ -43,6 +43,13 @@ Route::group(['middleware'=>['auth','cekrole:admin']], function(){
     Route::get('/payment', [App\Http\Controllers\PaymentController::class, 'payment'])->name('payment');
     Route::post('/confirmPayment', [App\Http\Controllers\PaymentController::class, 'confirmPayment'])->name('confirmPayment');
     Route::get('/ranking', [App\Http\Controllers\RankingController::class, 'index'])->name('ranking');
+    Route::post('/ranking-by-prodi', [App\Http\Controllers\RankingController::class, 'sort'])->name('ranking.byprodi');
+    Route::get('/server-exam', [ExamController::class, 'serverExam'])->name('server-exam');
+    Route::post('/open-exam', [ExamController::class, 'openExam'])->name('open-exam');
+    Route::post('/close-exam', [ExamController::class, 'closeExam'])->name('close-exam');
+    Route::get('/server-announcement', [PengumumanController::class, 'serverAnnouncement'])->name('server-announcement');
+    Route::post('/open-announcement', [PengumumanController::class, 'openAnnouncement'])->name('open-announcement');
+    Route::post('/close-announcement', [PengumumanController::class, 'closeAnnouncement'])->name('close-announcement');
 });
 
 Route::group(['middleware'=>['auth','cekrole:student']], function(){
@@ -61,7 +68,6 @@ Route::group(['middleware'=>['auth','cekrole:student']], function(){
         Route::post('/update/{id}', [App\Http\Controllers\DashboardSiswaController::class, 'update'])->name('updateDataSiswa');
     });
 });
-
 
 Route::get('/exam', [ExamController::class, 'index'])->name('exam');
 Route::post('/cek_peserta', [ExamController::class, 'cekPeserta'])->name('cek_peserta');

@@ -13,12 +13,21 @@ class PaymentController extends Controller
             'fotoStruk' => 'required',
         ]);
 
-        $payment = new Pembayaran();
-        $request->file('fotoStruk')->move('upload/struk/',$request->file('fotoStruk')->getClientOriginalName());
-        $payment->user_id = Auth::user()->id;
-        $payment->foto = $request->file('fotoStruk')->getClientOriginalName();
-        $payment->status = 'waiting';
-        $payment->save();
+        $pastUpload = Pembayaran::where('user_id','=',Auth::user()->id)->first();
+        if($pastUpload->count() > 0){
+            $request->file('fotoStruk')->move('upload/struk/',$request->file('fotoStruk')->getClientOriginalName());
+            $pastUpload->foto = $request->file('fotoStruk')->getClientOriginalName();
+            $pastUpload->status = 'waiting';
+            $pastUpload->update();
+            
+        } else {
+            $payment = new Pembayaran();
+            $request->file('fotoStruk')->move('upload/struk/',$request->file('fotoStruk')->getClientOriginalName());
+            $payment->user_id = Auth::user()->id;
+            $payment->foto = $request->file('fotoStruk')->getClientOriginalName();
+            $payment->status = 'waiting';
+            $payment->save();
+        }
 
         return redirect()->back();
     }

@@ -4,13 +4,48 @@ namespace App\Http\Controllers;
 
 use App\Models\DataSiswa;
 use App\Models\Exam;
+use App\Models\ServerAnnouncement;
 use Illuminate\Http\Request;
 
 class PengumumanController extends Controller
 {
+    public function serverAnnouncement()
+    {
+        $server = ServerAnnouncement::all()->first();
+        return view('admin.announcement-server')->with('server',$server);
+    }
+
     public function index()
     {
-        return view('pengumuman');
+        $server = ServerAnnouncement::all()->first();
+        return view('pengumuman')->with('server', $server);
+    }
+
+
+    public function openAnnouncement()
+    {
+        $server = ServerAnnouncement::all()->first();
+
+        $server->status = "dibuka";
+
+        $server->update();
+
+        return redirect()->back()->with([
+            'server' => $server,
+        ]);
+    }
+
+    public function closeAnnouncement()
+    {
+        $server = ServerAnnouncement::all()->first();
+
+        $server->status = "ditutup";
+
+        $server->update();
+
+        return redirect()->back()->with([
+            'server' => $server,
+        ]);
     }
 
     public function cekHasil(Request $request){

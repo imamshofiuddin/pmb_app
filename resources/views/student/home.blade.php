@@ -48,9 +48,13 @@
             <div class="card mb-5">
                 @if (!isset($form_profile))
                     <div class="card-header">Pembayaran</div>
-                    @if (isset($paid) && $paid != null)
+                    @if (isset($paid) && $paid != null && !isset($repay))
                         <div class="alert alert-warning rounded-0" role="alert">
                             Anda sudah upload bukti bayar, Mohon tunggu konfirmasi
+                        </div>
+                    @elseif(isset($paid) && $paid != null && isset($repay))
+                        <div class="alert alert-danger rounded-0" role="alert">
+                            Pembayaran Anda Ditolak, silahkan kirimkan bukti pembayaran yang valid!
                         </div>
                     @endif
                     <div class="card-body">
@@ -67,7 +71,7 @@
                             <li class="list-group-item fw-bold">Biaya : Rp500.000</li>
                         </ul>
 
-                    @if ($paid == null)
+                    @if ($paid == null || isset($repay))
                         <form action="{{ route('pay') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
@@ -89,27 +93,38 @@
                         <div class="row gap-0">
                             <div class="col-lg-6 data-diri">
                                 Data Diri
-                                <input class="form-control my-2" type="text" name="nisn" placeholder="NISN">
-                                <input class="form-control my-2" type="text" name="nama" placeholder="Nama">
-                                <input class="form-control my-2" type="text" name="gender" placeholder="Jenis Kelamin">
-                                <input class="form-control my-2" type="text" name="alamat" placeholder="Alamat Rumah">
-                                <input class="form-control my-2" type="text" name="kota" placeholder="Kota">
-                                <input class="form-control my-2" type="date" name="ttl" placeholder="Tanggal Lahir">
+                                <input class="form-control my-2" type="text" name="nisn" placeholder="NISN" required>
+                                <input class="form-control my-2" type="text" name="nama" placeholder="Nama" required>
+                                <select class="form-control" name="gender" required>
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                                <input class="form-control my-2" type="text" name="alamat" placeholder="Alamat Rumah" required>
+                                <input class="form-control my-2" type="text" name="kota" placeholder="Kota" required>
+                                <input class="form-control my-2" type="date" name="ttl" placeholder="Tanggal Lahir" required>
+                                <input class="form-control my-2" type="text" name="hp" placeholder="Nomor HP" required>
+                                <input class="form-control my-2" type="text" name="email" placeholder="Email" required>
                             </div>
                             <div class="col-lg-6 data-ortu">
                                 Data Orang Tua
-                                <input class="form-control my-2" type="text" name="name-parent" placeholder="Nama Orang Tua">
-                                <input class="form-control my-2" type="text" name="job-parent" placeholder="Pekerjaan Orang Tua">
-                                <input class="form-control my-2" type="number" name="sal-parent" placeholder="Penghasilan Orang Tua">
+                                <input class="form-control my-2" type="text" name="name-parent" placeholder="Nama Orang Tua" required>
+                                <input class="form-control my-2" type="text" name="job-parent" placeholder="Pekerjaan Orang Tua" required>
+                                <input class="form-control my-2" type="number" name="sal-parent" placeholder="Penghasilan Orang Tua" required>
                             </div>
                             <div class="col-lg-6 data-sekolah">
                                 Data Sekolah
-                                <input class="form-control my-2" type="text" name="name-school" placeholder="Asal Sekolah">
-                                <input class="form-control my-2" type="text" name="year-ijazah" placeholder="Tahun Ijazah">
+                                <input class="form-control my-2" type="text" name="name-school" placeholder="Asal Sekolah" required>
+                                <label for="tahun-ijazah">Tahun Ijazah</label>
+                                <select class="form-control mb-3" name="year-ijazah" id="tahun_ijazah" required>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                </select>
                             </div>
                             <div class="col-lg-6 data-sekolah">
                                 Foto Peserta
-                                <input class="form-control my-2" type="file" accept="image/*" name="foto" id="foto">
+                                <input class="form-control my-2" type="file" accept="image/*" name="foto" id="foto" required>
                                 <div class="mb-3" id="img-preview"></div>
                             </div>
                         </div>

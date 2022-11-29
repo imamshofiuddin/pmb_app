@@ -74,7 +74,7 @@
             <a class="nav-link" href="">Program Studi</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">Pengumuman</a>
+            <a class="nav-link" href="{{ route('pengumuman') }}">Pengumuman</a>
           </li>
           <li class="nav-item">
             @auth
