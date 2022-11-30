@@ -33,6 +33,7 @@ Auth::routes();
 Route::group(['middleware'=>['auth','cekrole:admin']], function(){
     Route::get('/payment', [App\Http\Controllers\PaymentController::class, 'payment'])->name('payment');
     Route::post('/confirmPayment', [App\Http\Controllers\PaymentController::class, 'confirmPayment'])->name('confirmPayment');
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
 });
 
 Route::group(['middleware'=>['auth','cekrole:student']], function(){

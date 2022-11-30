@@ -34,8 +34,6 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.scss">
-  <link rel="stylesheet" href="util.css">
-  <link rel="stylesheet" href="main.css">
 </head>
 
 <body class="landing-page sidebar-collapse">
@@ -49,7 +47,7 @@
           <span class="button-bar"></span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="dashboard">Dashboard</a>
           <a class="dropdown-item" href="#">Another action</a>
           <a class="dropdown-item" href="#">Something else here</a>
           <div class="dropdown-divider"></div>
@@ -80,7 +78,7 @@
             @auth
                 <a class="nav-link" href="{{ url('/home') }}">Home</a>
             @else
-                <a class="nav-link" href="{{ route('login') }}">Login</a>
+                <a class="nav-link" href="{{ route('login') }}login">Login</a>
           </li>
             @if (Route::has('register'))
             <li class="nav-item">
