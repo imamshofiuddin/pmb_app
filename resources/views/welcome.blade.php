@@ -74,6 +74,9 @@
             <a class="nav-link" href="">Program Studi</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{{ route('exam') }}">Ujian</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{{ route('pengumuman') }}">Pengumuman</a>
           </li>
           <li class="nav-item">

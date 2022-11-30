@@ -5,8 +5,14 @@
 @include('admin.components.navbar')
 
 {{-- Main Content --}}
-<div class="container mt-5">
-    <table class="table"> 
+<div class="container-fluid" style="background-color: #4d25db">
+    <div class="container p-4">
+        <h3 class="fw-semibold py-5 text-white fs-1">Pembayaran</span></h3>
+    </div>
+</div>
+
+<div class="container" style="margin-top: -3%;">
+    <table class="table bg-light p-3 rounded shadow text-center table-striped"> 
         <thead>
             <th>No</th>
             <th>Nama</th>
@@ -15,11 +21,14 @@
             <th>Konfirmasi</th>
         </thead>
         <tbody>
+            @php
+                $i = 1;
+            @endphp
             @foreach ($data as $item)
                 <tr>
-                    <td></td>
+                    <td>{{ $i }}</td>
                     <td>{{ $item->name }}</td>
-                    <td><img class="w-50" src="{{ asset('upload/struk/'.$item->foto) }}" alt=""></td>
+                    <td><a target="_blank" href="{{ asset('upload/struk/'.$item->foto) }}"><img style="width: 5rem;" src="{{ asset('upload/struk/'.$item->foto) }}" alt=""></a></td>
                     <td>{{ $item->status }}</td>
                     <td>
                         @if ($item->status == 'waiting')
@@ -39,6 +48,9 @@
                         @endif
                     </td>
                 </tr>
+                @php
+                    $i++;
+                @endphp
             @endforeach
         </tbody>
     </table>
