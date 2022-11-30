@@ -4,9 +4,6 @@
 @section('content')
 @include('student.components.navbar')
     <div class="container my-5">
-        <a class="nav-item active" href="{{ route('profile') }}">Profile</a>
-        <a href="{{ route('pilih_prodi') }}">Pilihan</a>
-        <a href="{{ route('finalisasi') }}">Finalisasi</a>
         <h1 class="fw-bolder" style="color: navy">Selamat Datang</h1>
         <div class="row mt-3">
             <div class="col-lg-7">

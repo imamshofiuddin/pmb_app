@@ -6,10 +6,32 @@
 
 {{-- main content --}}
 <div class="container mt-5">
-    <a class="nav-item active" href="{{ route('profile') }}">Profile</a>
-    <a href="{{ route('pilih_prodi') }}">Pilihan</a>
-    <a href="{{ route('finalisasi') }}">Finalisasi</a><br>
-    Pilih Program Studi
+    <h1 class="fw-semibold mb-3">Pemilihan Program Studi</h1>
+
+    <table class="table shadow text-center table-striped">
+        <thead>
+            <th>No.</th>
+            <th>Nama Prodi</th>
+            <th>Kapasitas Diterima</th>
+        </thead>
+        <tbody>
+            @php
+                $i = 1;
+            @endphp
+                @foreach ($prodis as $prodi)
+                @if ($prodi->nama_prodi != 'no_prodi')
+                    <tr>
+                        <td>{{ $i }}</td>
+                        <td>{{ $prodi->nama_prodi }}</td>
+                        <td>3</td>
+                    </tr>
+                    @php
+                        $i++;
+                    @endphp
+                @endif
+            @endforeach
+        </tbody>
+    </table>
 
     @if ($siswa->is_final == 'final')
         <p>Kamu sudah memilih prodi</p>
@@ -17,6 +39,7 @@
         <i>Tidak bisa mengubah data, data anda sudah difinalisasi</i>
     @else
         @if ($currentProdi->nama_prodi == "no_prodi")
+            Pilih Program Studi
             <form action="{{ route('submitProdi') }}" method="post">
                 @csrf
                 <select name="prodi" id="prodi" class="form-control">

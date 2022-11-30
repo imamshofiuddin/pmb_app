@@ -1,7 +1,6 @@
-{{-- Navbar --}}
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand" href="{{ url('/home') }}">
             <img style="width: 6%" src="{{ asset('assets/img/pens.png') }}" alt="">
             <p class="ms-3 d-inline fs-5 fw-semibold">Penerimaan Mahasiswa Baru</p>
         </a>
@@ -10,11 +9,14 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav me-auto">
-                
+            <ul class="navbar-nav ms-auto">
+                <a class="nav-link" href="{{ route('profile') }}">Profile</a>
+                <a class="nav-link" href="{{ route('pilih_prodi') }}">Pilihan</a>
+                <a class="nav-link" href="{{ route('finalisasi') }}">Finalisasi</a>
             </ul>
-            
+
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">

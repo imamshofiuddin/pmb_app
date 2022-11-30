@@ -63,7 +63,9 @@ class DashboardSiswaController extends Controller
     {
         $currentSiswa = DataSiswa::where('id_user','=',Auth::user()->id)->first();
 
-        $currentSiswa->id_prodi = 1;
+        $no_prodi = Prodi::where('nama_prodi','=','no_prodi')->first();
+
+        $currentSiswa->id_prodi = $no_prodi->id;
 
         $currentSiswa->update();
 
@@ -80,8 +82,9 @@ class DashboardSiswaController extends Controller
     public function finalisasiData()
     {
         $currentSiswa = DataSiswa::where('id_user','=',Auth::user()->id)->first();
+        $no_prodi = Prodi::where('nama_prodi','=','no_prodi')->first();
 
-        if($currentSiswa->id_prodi == 1){
+        if($currentSiswa->id_prodi == $no_prodi->id){
             return redirect()->back()->withErrors(['error'=>'Anda Belum mengisi prodi, silahkan pilih terlebih dahulu!']);
         }
         $currentSiswa->is_final = 'final';
